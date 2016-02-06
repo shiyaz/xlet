@@ -21,16 +21,15 @@ extends the protocol ``IExtractPattern``.
     (extend-type java.util.Date
         atollier.xlet/IExtractPattern
         (unapply [date]
-            [(.getYear date) (.getMonth date) (.getDay date)]))
+            [(.getYear date) (.getMonth date) (.getDate date)]))
 
-    (xlet
-        [_ _ _ d] (str "not a match")
-        [_ _ d] (str "day" d))
+    (atollier.xlet/xlet (java.util.Date. 2016 2 6)
+        [_ _ _ d] (throw (Exception. "Won't be thrown."))
+        [_ _ d] (str "Day of month: " d))
 
 
 ## License
 
 Copyright © 2016 [Shiyas Rasheed](http://atollier.com)
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License either version 1.0.
