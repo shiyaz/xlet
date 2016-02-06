@@ -45,6 +45,9 @@
       (when (equate! p e bindings)
         (recur ps es bindings)))))
 
+(defn unapply* [x]
+  (unapply x))
+
 (defn bind-pattern* [pat ext]
   (let [bindings (atom {})]
     (cond (nil? ext)                           nil
@@ -103,5 +106,5 @@
        (if-not (even? cc)
          (throw (java.lang.IllegalArgumentException. "xlet requires an even number of forms."))
          (cons 'let
-               (cons [extraction (list 'unapply e)]
+               (cons [extraction (list 'atollier.xlet/unapply* e)]
                      (expand-clauses clauses)))))))
