@@ -18,10 +18,19 @@ extends the protocol ``IExtractPattern``.
 
 ### Example:
 
+    (extend-type java.net.URL
+            atollier.xlet/IExtractPattern
+            (unapply [in]
+              [(.getProtocol in) (.getHost in) (.getPort in) (.getPath in)]))
+
+    (atollier.xlet/xlet (java.net.URL. "http://www.google.com/")
+            ["https" host _ _] (str "HTTPS " host)
+            ["http"  host _ _] (str "HTTP " host))
+
     (extend-type java.util.Date
         atollier.xlet/IExtractPattern
-        (unapply [date]
-            [(.getYear date) (.getMonth date) (.getDate date)]))
+        (unapply [in]
+            [(.getYear in) (.getMonth in) (.getDate in)]))
 
     (atollier.xlet/xlet (java.util.Date. 2016 2 6)
         [_ _ _ d] (throw (Exception. "Won't be thrown."))
